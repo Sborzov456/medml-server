@@ -21,14 +21,17 @@ python ./medweb/manage.py makemigrations medemail
 echo "MIGRATION MEDEMAIL!"
 python ./medweb/manage.py makemigrations inner_mail
 echo "MIGRATION inner_mail!"
+# sborzov segmentation 
+python ./medwer/manage.py makemigrations segmentation
+echo "MIGRATION segmentations!"
+
+
 python ./medweb/manage.py migrate auth
 python ./medweb/manage.py migrate medml
 python ./medweb/manage.py migrate medemail
 python ./medweb/manage.py migrate inner_mail
+pythone ./medweb/manage.py migrate segmentation
 
-# Модуль сегментации для цитологии
-python ./medweb/manage.py makemigrations segmentation
-echo "MEGRATION SEGMENTATION!"
 
 python ./medweb/manage.py migrate
 

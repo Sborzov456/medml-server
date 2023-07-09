@@ -197,22 +197,27 @@ class UZIImageCreateView(CreateAPIView):
   serializer_class = ser.UZIImageCreateSerializer
 
   def create(self, request, *args, **kwargs):
+    print('DEBUG 1')
     serializer = self.get_serializer(data=request.data)
+    print('DEBUG 2')
     serializer.is_valid(raise_exception=True)
+    print('DEBUG 3')
     data = self.perform_create(serializer)
+    print('--------DEBUG DATA-------', data)
     headers = self.get_success_headers(serializer.data)
     return Response(data, status=status.HTTP_201_CREATED, headers=headers)
 
   def perform_create(self, serializer):
     d = serializer.save()
-    
+    print('----DEBUG D------', d)
     uzi_image: models.UZIImage = d['uzi_image']
     original: models.OriginalImage = d['image'] # TODO: changes with nnapi
-    tasks.predict_all2.delay(
-      original.image.path, 
-      projection_type=uzi_image.details.get('projection_type', 'cross'), 
-      id=uzi_image.id, 
-    )
+    
+    # tasks.predict_all2.delay(
+    #   original.image.path, 
+    #   projection_type=uzi_image.details.get('projection_type', 'cross'), 
+    #   id=uzi_image.id, 
+    # )
     return {'image_id': uzi_image.id}
 
 

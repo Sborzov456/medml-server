@@ -2,23 +2,32 @@ from django.contrib import admin
 from .models import *
 # Register your models here.
 
+
+@admin.register(Image)
+class ImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'image_file_name')
+
 @admin.register(Segmentation)
 class SegmentationAdmin(admin.ModelAdmin):
-    list_display = ('image_id', 'type')
+    list_display = ('type', )
     
+@admin.register(Point)
+class PointAdmin(admin.ModelAdmin):
+    list_display = ('x', 'y')
 
-@admin.register(Box)
-class BoxAdmin(admin.ModelAdmin):
-    list_display = ('x', 'y', 'width', 'height', 'segmentation', 'get_type', 'get_image_id')
+
+@admin.register(Polygon)
+class PolygonAdmin(admin.ModelAdmin):
+    list_display = ('id', 'segmentation', 'get_type', 'get_image_id')
     search_fields = ['segmentation__id']
 
     @admin.display(ordering='segmentation__type', description='Type')
     def get_type(self, obj):
         return obj.segmentation.type
     
-    @admin.display(ordering='segmentation__image_id', description='Image ID')
+    @admin.display(ordering='segmentation__image', description='Image ID')
     def get_image_id(self, obj):
-        return obj.segmentation.image_id
+        return obj.segmentation.image
 
 
 @admin.register(Type)
@@ -35,4 +44,4 @@ class CorrectionAdmin(admin.ModelAdmin):
     
     @admin.display(ordering='segmentation__image_id', description='Image ID')
     def get_image_id(self, obj):
-        return obj.segmentation.image_id
+        return obj.segmentation.image__id

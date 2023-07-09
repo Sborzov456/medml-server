@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  bid_server:
+    # command: '/bin/bash -c "cd ./server/ && python3 server.py"' 
+    # entrypoint: './server/entrypoint.sh'
+    container_name: bid_server
+    build:
+      context: ./bid
+    ports:
+      - 8005:8000
+    env_file:
+      - ./bid/.env
+    environment:
+      - BASE_ROOT=/api/v1/bid/
+    volumes:
+      - /Users/sborzov/Работа/medml-server/media/shots:/usr/src/bid/media

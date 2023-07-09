@@ -38,7 +38,7 @@ class LowerEmailField(models.EmailField):
     return super().get_prep_value(value).lower()
 
 dcm_validator = FileExtensionValidator([
-  'dcm','png','jpeg','jpg','tiff','tif'
+  'dcm','png','jpeg','jpg','tiff','tif', 'svs'
   ])
 
 

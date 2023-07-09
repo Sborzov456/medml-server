@@ -1,5 +1,6 @@
 from rest_framework import serializers as ser
 from django.core.validators import EmailValidator
+from segmentation.serializers import *
 
 from medml.models import (
   MedWorker, Patient, PatientCard,
@@ -258,7 +259,7 @@ class PatientTableSerializer(ser.Serializer):
 """UZIS' serizlisers"""
 
 class UZIImageCreateSerializer(ser.ModelSerializer):
-  original_image = ser.FileField(required=True, write_only=True,validators=[dcm_validator])
+  original_image = ser.FileField(required=True, write_only=True)
   projection_type = ser.ChoiceField(
     choices=UZIImage.PROJECTION_TYPE_CHOICES,
     default=UZIImage.PROJECTION_TYPE_CHOICES[0][0]
@@ -387,7 +388,7 @@ class UZIImageGetSerializer(ser.Serializer):
   image = UZIOriginalImageSerializer()
   segmentation = UZISegmentationDataSerializer(many=True)
   info = UZIImageSupprotSerializer()
-  
+
   def to_representation(self, instance):
     image = getattr(instance, 'image', None)
     segmentation = None

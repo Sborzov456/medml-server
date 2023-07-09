@@ -7,8 +7,6 @@ from server.model.loaders.ImgLoader import ImgLoader
 
 from typing import *
 
-
-
 DefaultImgLoader = ImgLoader()
 DefaultSaver = ImgSaver()
 # DefalutImgeoSaver = ImgeoSaver()

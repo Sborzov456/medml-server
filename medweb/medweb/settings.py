@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'medml',
     'inner_mail',
     'metrics',
-    'segmentation'
+    'segmentation',
 ]
 
 MIDDLEWARE = [

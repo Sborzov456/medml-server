@@ -40,7 +40,7 @@ services:
     restart: always
     container_name: db
     ports:
-      - 8001:5432
+      - 8002:5432
     env_file:
       - ./dev.env
     volumes:
@@ -101,11 +101,11 @@ services:
       - web
     expose:
       - 8080
-    links:
-      - web
-      # - metrics_server
-      # - cadvisor
-      # - clickhouse
+    # links:
+    #   - web
+    #   - metrics_server
+    #   - cadvisor
+    #   - clickhouse
     # volumes:
     #   # - static_files:/usr/src/web/static_files/
     #   # - ./media:/usr/src/web/media
@@ -135,7 +135,8 @@ services:
     environment:
       - BASE_ROOT=/api/v1/bid/
     volumes:
-      - ./bid/data/:/usr/src/bid/data
+    #TODO: Относительный путь ./media (?)
+      - /Users/sborzov/Работа/medml-server/media/shots:/usr/src/bid/media
   # metrics_server:
   #   build: 
   #     context: ./metrics/

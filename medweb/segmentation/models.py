@@ -1,5 +1,8 @@
 from django.db import models
-from medml.models import OriginalImage
+
+class Image(models.Model):
+    image_file = models.FileField(upload_to='shots/', null=True)
+    image_file_name = models.CharField(max_length=255)
 
 class Type(models.Model):
     name = models.CharField(max_length=30, primary_key=True)
@@ -8,25 +11,27 @@ class Type(models.Model):
         return self.name
 
 class Segmentation(models.Model):
-    image_id = models.ForeignKey(OriginalImage, on_delete=models.RESTRICT)
-    type = models.ForeignKey('Type', on_delete=models.RESTRICT)
+    image = models.ForeignKey(Image, on_delete=models.RESTRICT, null=False)
+    type = models.ForeignKey(Type, on_delete=models.RESTRICT)
 
     class Meta:
         unique_together = ['image_id', 'type'] 
     
     def __str__(self) -> str:
-        return f'Image: {self.image_id}; Type: {self.type}; Id: {self.id}'
+        return f'Image: {self.image}; Type: {self.type}; Id: {self.id}'
 
-class Box(models.Model):
-    x = models.IntegerField(default=0)
-    y = models.IntegerField(default=0)
-    width = models.IntegerField(default=0)
-    height = models.IntegerField(default=0)
-    segmentation = models.ForeignKey(Segmentation, related_name='boxes', on_delete=models.RESTRICT)
+class Polygon(models.Model):
+    segmentation = models.ForeignKey(Segmentation, related_name='polygons', on_delete=models.RESTRICT)
 
     def __str__(self) -> str:
-        return f'Box {self.id}'
-    
+        return f'Polygon {self.id}'
+
+class Point(models.Model):
+    x = models.IntegerField(default=0)
+    y = models.IntegerField(default=0)
+    polygon = models.ForeignKey(Polygon, related_name='points', on_delete=models.RESTRICT)
+
+
 class Correction(models.Model):
     correction = models.JSONField()
     segmentation = models.ForeignKey(Segmentation, on_delete=models.RESTRICT)
