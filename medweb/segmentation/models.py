@@ -34,4 +34,8 @@ class Point(models.Model):
 
 class Correction(models.Model):
     correction = models.JSONField()
-    segmentation = models.ForeignKey(Segmentation, on_delete=models.RESTRICT)
+    image = models.ForeignKey(Image, on_delete=models.RESTRICT)
+    name = models.CharField(max_length=20)
+    description = models.TextField()
+    creation_date = models.DateField()
+    

@@ -36,12 +36,12 @@ class TypeAdmin(admin.ModelAdmin):
 
 @admin.register(Correction)
 class CorrectionAdmin(admin.ModelAdmin):
-    list_display = ('correction', 'get_type', 'get_image_id')
+    list_display = ('name', 'creation_date', 'image', 'description', 'correction')
     
-    @admin.display(ordering='segmentation__type', description='Type')
-    def get_type(self, obj):
-        return obj.segmentation.type
+    # @admin.display(ordering='segmentation__type', description='Type')
+    # def get_type(self, obj):
+    #     return obj.segmentation.type
     
-    @admin.display(ordering='segmentation__image_id', description='Image ID')
-    def get_image_id(self, obj):
-        return obj.segmentation.image__id
+    # @admin.display(ordering='segmentation__image_id', description='Image ID')
+    # def get_image_id(self, obj):
+    #     return obj.segmentation.image.id

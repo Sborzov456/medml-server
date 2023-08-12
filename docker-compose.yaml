@@ -136,7 +136,7 @@ services:
       - BASE_ROOT=/api/v1/bid/
     volumes:
     #TODO: Относительный путь ./media (?)
-      - /Users/sborzov/Работа/medml-server/media/shots:/usr/src/bid/media
+      - ./media/shots:/usr/src/bid/media
   # metrics_server:
   #   build: 
   #     context: ./metrics/
