@@ -28,6 +28,6 @@ Readme_t.md
 todo.txt
 docker-compose.prod_1.yml
 metrics/example.log
-db/
+
 front-dev/
 bid/data/

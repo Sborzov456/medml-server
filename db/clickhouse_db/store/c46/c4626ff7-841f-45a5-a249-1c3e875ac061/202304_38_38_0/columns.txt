@@ -1,0 +1,8 @@
+columns format version: 1
+6 columns:
+`Tag1` String
+`Path` String
+`Value` Float64
+`Time` UInt32
+`Date` Date
+`Timestamp` UInt32

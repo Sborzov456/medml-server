@@ -1,0 +1,6 @@
+columns format version: 1
+4 columns:
+`Date` Date
+`Level` UInt32
+`Path` String
+`Version` UInt32
